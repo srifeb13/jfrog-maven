@@ -1,11 +1,11 @@
 node {
-    def server = Artifactory.server('itrainavenger.jfrog.io')
+    def server = Artifactory.server('serv12.jfrog.io')
     def buildInfo = Artifactory.newBuildInfo()
     def rtMaven = Artifactory.newMavenBuild()
     
     
     stage ('Checkout & Build') {
-        git url: 'https://github.com/itrainavengers/jfrog-maven.git'
+        git url: 'https://github.com/itrainbatman/jfrog-maven.git'
     }
  
     stage ('Unit Test') {
@@ -40,16 +40,5 @@ node {
         server.publishBuildInfo buildInfo
     }
     
-    stage('Status Notification'){
-        def mailRecipients = "ramesh.thadivada@gmail.com"
-        def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER}- ${currentBuild.result}"
        
-        mail bcc: '',
-             from: 'manee2k6@gmail.com',
-             to: 'manee2k6@gmail.com, ramesh.thadivada@gmail.com',
-             subject: subject,
-             body: "Build Number: #${env.BUILD_NUMBER}  Status:${currentBuild.result} Build URL: ${env.BUILD_URL}"
-          
-   }
-   
 }
